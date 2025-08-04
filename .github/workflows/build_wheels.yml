@@ -219,13 +219,10 @@ jobs:
           fi
           source _builder/.github/workflows/env.sh
       
-          SETUP_PY_DIR="."
-          if [[ -n "${{ inputs.repo-subdir }}" ]]; then
-            SETUP_PY_DIR="${{ inputs.repo-subdir }}"
-          fi
-      
-          echo "🛠 Building wheel in $SETUP_PY_DIR"
-          ls -la "$SETUP_PY_DIR"  # Optional: for debug
+          SETUP_PY_DIR="${{ inputs.repo-subdir }}"
+          echo "📁 Building wheel in directory: $SETUP_PY_DIR"
+          ls -la "$SETUP_PY_DIR"
+          
           python -m build --wheel --no-isolation --outdir dist "$SETUP_PY_DIR"
         shell: bash
 
