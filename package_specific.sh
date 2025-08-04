@@ -2,29 +2,28 @@
 
 set -eu -o pipefail
 
-set -eu -o pipefail
-
+# Define what you want to build
+PACKAGE_NAME=detectron2
 REPO=https://github.com/facebookresearch/detectron2.git
 COMMIT_OR_TAG=v0.6
-PACKAGE_DIR=detectron2
 
-# Clone the repo if it doesn't exist
-if [ ! -d "$PACKAGE_DIR" ]; then
-  git clone "$REPO" "$PACKAGE_DIR"
+# Clone the repository if it doesn't exist
+if [ ! -d "$PACKAGE_NAME" ]; then
+  git clone "$REPO" "$PACKAGE_NAME"
 fi
 
-cd "$PACKAGE_DIR"
-git fetch
+cd "$PACKAGE_NAME"
 git checkout "$COMMIT_OR_TAG"
 
-# Confirm setup.py exists
-if [[ ! -f setup.py ]]; then
-  echo "❌ Error: setup.py not found in $(pwd)"
+# Debug: list directory contents
+echo "✅ Now in directory: $(pwd)"
+ls -l
+
+# Check if setup.py exists before modifying
+if [[ -f setup.py ]]; then
+  echo "🔧 Patching setup.py"
+  sed -i 's/^version = .*/version = "0.6"/' setup.py
+else
+  echo "❌ setup.py not found in $(pwd)"
   exit 1
 fi
-
-# (Optional) Modify or patch setup.py here
-# sed -i 's/.../.../' setup.py
-
-echo "✅ Ready to build detectron2 from $(pwd)"
-
