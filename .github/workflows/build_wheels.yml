@@ -82,7 +82,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         python-version: ["3.12"]
-        torch-version: ["2.6.0.dev20241112"]
+        torch-version: ["2.6.0"]
         compute-platform: ["cu118"]
 
     steps:
