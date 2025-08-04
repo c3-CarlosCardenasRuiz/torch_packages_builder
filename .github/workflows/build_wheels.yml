@@ -16,13 +16,16 @@ on:
       torch-version:
         description: "Torch versions, separated with a comma"
         required: true
+        default: "2.3.1"
         type: string
       limit-python:
         description: "Python versions, separated with a comma"
         type: string
+        default: "3.12"
       limit-compute-platform:
         description: "PyTorch compute platforms, separated with a comma"
         type: string
+        default: "cu118"
       include-hash:
         description: "Include commit hash in version"
         type: boolean
