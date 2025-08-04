@@ -219,7 +219,7 @@ jobs:
           fi
           source _builder/.github/workflows/env.sh
       
-          SETUP_PY_DIR="${{ inputs.repo-subdir }}"
+          SETUP_PY_DIR="${{ inputs.repo-subdir || 'detectron2' }}"
           echo "📁 Building wheel in directory: $SETUP_PY_DIR"
           ls -la "$SETUP_PY_DIR"
           
