@@ -79,7 +79,11 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix: ${{ fromJson(needs.get-jobs.outputs.matrix) }}
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.12"]
+        torch-version: ["2.6.0.dev20241112"]
+        compute-platform: ["cu118"]
 
     steps:
       - name: Free up space
