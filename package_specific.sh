@@ -2,28 +2,29 @@
 
 set -eu -o pipefail
 
-# Define what you want to build
+# Package build parameters
 PACKAGE_NAME=detectron2
 REPO=https://github.com/facebookresearch/detectron2.git
 COMMIT_OR_TAG=v0.6
 
-# Clone the repository if it doesn't exist
-if [ ! -d "$PACKAGE_NAME" ]; then
-  git clone "$REPO" "$PACKAGE_NAME"
-fi
+# Clean up if the folder already exists
+rm -rf $PACKAGE_NAME
 
+# Clone and enter repo
+git clone "$REPO" "$PACKAGE_NAME"
 cd "$PACKAGE_NAME"
 git checkout "$COMMIT_OR_TAG"
 
-# Debug: list directory contents
-echo "✅ Now in directory: $(pwd)"
-ls -l
+# Show where we are
+echo "📁 Current directory: $(pwd)"
+echo "📄 Listing files:"
+ls -lh
 
-# Check if setup.py exists before modifying
+# Only patch setup.py if it exists
 if [[ -f setup.py ]]; then
-  echo "🔧 Patching setup.py"
-  sed -i 's/^version = .*/version = "0.6"/' setup.py
+  echo "🔧 Patching setup.py version"
+  sed -i 's/version = .*$/version = "0.6"/' setup.py
 else
-  echo "❌ setup.py not found in $(pwd)"
+  echo "❌ ERROR: setup.py not found in $(pwd)"
   exit 1
 fi
