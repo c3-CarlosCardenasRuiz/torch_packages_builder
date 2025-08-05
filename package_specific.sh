@@ -6,6 +6,7 @@ set -eu -o pipefail
 PACKAGE_NAME=detectron2
 REPO=https://github.com/facebookresearch/detectron2.git
 COMMIT_OR_TAG=v0.6
+COMMIT_OR_TAG=ff53992b1985b63bd3262b5a36167098e3dada02
 
 # Clean up if the folder already exists
 rm -rf $PACKAGE_NAME
